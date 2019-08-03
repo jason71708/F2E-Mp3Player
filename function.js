@@ -91,6 +91,10 @@ let vm = new Vue({
             let min = Math.floor(time/60);
             let sec = Math.round(time%60);
             return min+':'+sec;
+        },
+        onTimeUpdate () {
+            console.log(this)
+            this.currentTime = this.$refs.mp3.currentTime
         }
     }
 })

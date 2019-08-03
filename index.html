@@ -238,8 +238,10 @@
         </div>
     </div>
      
-    <audio  id="audio"
-            src= 'audio/遇见 Yu Jian （Encounter) - Stefanie Sun 孫燕姿 - Sungha Jung.mp3' ></audio>
+    <audio  id="audio" 
+    ref="mp3"
+    @timeupdate="onTimeUpdate"
+    src= 'audio/遇见 Yu Jian （Encounter) - Stefanie Sun 孫燕姿 - Sungha Jung.mp3' ></audio>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js'></script>
     <script src="function.js"></script>
 </body>
