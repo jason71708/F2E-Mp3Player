@@ -23,30 +23,28 @@
                         </div>
                         <div class="title mt_18" @click="isSingerShow=!isSingerShow"><span class="setX">歌手</span></div>
                         <div class="ul" :class="{show_ul:isSingerShow}">
-                            <div class="li">周杰倫</div>
-                            <div class="li">盧廣仲</div>
-                            <div class="li">蕭敬騰</div>
-                            <div class="li">孫燕姿</div>
+                            <template v-for="(item,index) in singerList">
+                                <div class="li" v-bind:num="index">{{item}}</div>
+                            </template>                        
                             <div class="title mt_18" @click="isAlbumShow=!isAlbumShow"><span class="setX">專輯</span></div>
                             <div class="ul" :class="{show_ul:isAlbumShow}">
-                                <div class="li">魔杰座</div>
-                                <div class="li">夜的第7章</div>
-                                <div class="li">12新作</div>
+                                <template v-for="(item,index) in singerAlbum[0]">
+                                    <div class="li">{{item}}</div>
+                                </template>
                             </div>
                         </div>
                         <div class="title mt_18" @click="isFavoriteShow=!isFavoriteShow"><span>我的最愛</span></div>
                         <div class="ul" :class="{show_ul:isFavoriteShow}"> 
-                            <div class="li">只能想念你</div>
-                            <div class="li">思念是一種病</div>
-                            <div class="li">稻香</div>
-                            <div class="li">愛情怎麼了嗎</div>
+                            <template v-for="(item,index) in myFavorite">
+                                <div class="li">{{item}}</div>
+                            </template>                        
                         </div>
                     </div> 
                 </div>
             </div>
             <div class="list_list">
                 <div class="nav">
-                    <div class="title">周杰倫</div>
+                    <div class="title">{{bigTitle}}</div>
                     <div class="list_icon">List
                         <div class="icon_box" @click="listShow()">
                             <span class="icon"></span>
@@ -57,159 +55,35 @@
                 </div>
                 <div class="list_box" :class="{list_show:isListShow}">
                     <div class="top"></div>
-                    <div class="song_box">
-                        <div class="row">
-                            <div class="song_title">黑色幽默
-                                <svg class="heart active" x="0px" y="0px" viewBox="0 0 20 17.8" >
-                                <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
-                                    c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
-                                    c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
-	                                c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
-                                </svg>
+                    <template v-for="(item,index) in playList[0]">
+                        <div class="song_box">
+                            <div class="row">
+                                <div class="song_title">{{item}}
+                                    <svg class="heart active" x="0px" y="0px" viewBox="0 0 20 17.8" >
+                                    <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
+                                        c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
+                                        c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
+                                        c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
+                                    </svg>
+                                </div>
+                                <div class="album">同名專輯</div>
                             </div>
-                            <div class="album">同名專輯</div>
-                        </div>
-                        <div class="row">
-                            <div class="singer">周杰倫</div>
-                            <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
-                            <div class="time">3:42</div>
-                        </div>
-                    </div>
-                    <div class="song_box">
-                        <div class="row">
-                            <div class="song_title">稻香
-                                <svg class="heart" x="0px" y="0px" viewBox="0 0 20 17.8" >
-                                <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
-                                    c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
-                                    c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
-	                                c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
-                                </svg>
+                            <div class="row">
+                                <div class="singer">周杰倫</div>
+                                <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="time">3:42</div>
                             </div>
-                            <div class="album">魔杰座</div>
                         </div>
-                        <div class="row">
-                            <div class="singer">周杰倫</div>
-                            <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
-                            <div class="time">3:35</div>
-                        </div>
-                    </div>
-                    <div class="song_box">
-                        <div class="row">
-                            <div class="song_title">雙節棍
-                                <svg class="heart" x="0px" y="0px" viewBox="0 0 20 17.8" >
-                                <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
-                                    c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
-                                    c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
-	                                c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
-                                </svg>
-                            </div>
-                            <div class="album">半島鐵盒</div>
-                        </div>
-                        <div class="row">
-                            <div class="singer">周杰倫</div>
-                            <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
-                            <div class="time">3:17</div>
-                        </div>
-                    </div>
-                    <div class="song_box">
-                        <div class="row">
-                            <div class="song_title">給我一首歌的時間
-                                <svg class="heart active" x="0px" y="0px" viewBox="0 0 20 17.8" >
-                                <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
-                                    c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
-                                    c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
-	                                c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
-                                </svg>
-                            </div>
-                            <div class="album">魔杰座</div>
-                        </div>
-                        <div class="row">
-                            <div class="singer">周杰倫</div>
-                            <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
-                            <div class="time">4:53</div>
-                        </div>
-                    </div>
-                    <div class="song_box">
-                        <div class="row">
-                            <div class="song_title">髮如雪
-                                <svg class="heart" x="0px" y="0px" viewBox="0 0 20 17.8" >
-                                <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
-                                    c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
-                                    c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
-	                                c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
-                                </svg>
-                            </div>
-                            <div class="album">霍元甲</div>
-                        </div>
-                        <div class="row">
-                            <div class="singer">周杰倫</div>
-                            <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
-                            <div class="time">5:08</div>
-                        </div>
-                    </div>
-                    <div class="song_box">
-                        <div class="row">
-                            <div class="song_title">水手怕水
-                                <svg class="heart" x="0px" y="0px" viewBox="0 0 20 17.8" >
-                                <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
-                                    c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
-                                    c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
-	                                c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
-                                </svg>
-                            </div>
-                            <div class="album">同名專輯</div>
-                        </div>
-                        <div class="row">
-                            <div class="singer">周杰倫</div>
-                            <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
-                            <div class="time">3:14</div>
-                        </div>
-                    </div>
-                    <div class="song_box">
-                        <div class="row">
-                            <div class="song_title">等你下課
-                                <svg class="heart active" x="0px" y="0px" viewBox="0 0 20 17.8" >
-                                <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
-                                    c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
-                                    c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
-	                                c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
-                                </svg>
-                            </div>
-                            <div class="album">12新作</div>
-                        </div>
-                        <div class="row">
-                            <div class="singer">周杰倫</div>
-                            <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
-                            <div class="time">4:06</div>
-                        </div>
-                    </div>
-                    <div class="song_box">
-                        <div class="row">
-                            <div class="song_title">七里香
-                                <svg class="heart" x="0px" y="0px" viewBox="0 0 20 17.8" >
-                                <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
-                                    c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
-                                    c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
-	                                c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
-                                </svg>
-                            </div>
-                            <div class="album">霍元甲</div>
-                        </div>
-                        <div class="row">
-                            <div class="singer">周杰倫</div>
-                            <div class="player" style="background-image: url(img/playicon-4.svg)"></div>
-                            <div class="time">4:40</div>
-                        </div>
-                    </div>
+                    </template>
                 </div>
                 <div class="album_box">
-                    <img class="album_cover" src="img/index.jpg" alt="">
+                    <img class="album_cover" :src="albumImgSrc" alt="">
                 </div>
             </div>
         </div>
         <div class="player_box" :class="{list_show:isListShow}">
             <div class="cd" :class="{playing:isplay}">
-                <img class="cd_cover" src="img/oth2632263479252f38d76e744488a0e9d53fc992c050010.jpg" alt="">
+                <img class="cd_cover" :src="albumImgSrc" alt="">
             </div>
             <div class="line" :class="{playing:isplay}" style="background-image: url(img/未命名-3.svg)"></div>
             <div class="btn_bar">
@@ -218,10 +92,10 @@
                 <div class="btn recycle"><div class="dot"></div></div>
             </div>
             <div class="shadow">
-                <div class="icon" :class="{playing:isplay}" @click="playOrStop();" :style="{backgroundImage : outPutIcon}"></div>
+                <div class="icon" :class="{playing:isplay}" @click="playOrStop();test3();" :style="{backgroundImage : outPutIcon}"></div>
             </div>
             <div class="pointer" :class="{playing:isplay}" style="background-image: url(img/player.svg)" ></div>
-            <div class="song_name"><span>只能想念你</span><br>蕭敬騰</div>
+            <div class="song_name"><span>{{songTitle}}</span><br>{{singer}}</div>
             <div class="volume">
                 <div class="bar" :style="{ background : colorV }">
                     <div class="btn" :style="{ left : volumeX + 'px'}" @mousedown="mousedownVol"></div>
@@ -231,17 +105,20 @@
             <div class="timer">
                 <div class="time">{{currentTime}}</div>
                 <div class="bar" :style="{ background : colorT }">
-                    <div class="btn" :style="{ left : timeX + 'px'}" @mousedown="mousedownTime"></div>
+                    <div class="btn" :style="{ left : timeX + 'px'}" @mousedown.stop="mousedownTime"></div>
                 </div>
-                <div class="time">{{maxTime}}</div>
+                <div class="time">{{duration}}</div>
             </div>
         </div>
+         <audio  id="audio"
+            ref="mp3"
+            type="audio/mpeg"
+            @canplay="canPlay"
+            @timeupdate="timeUpdate"
+            :src= 'mp3Src'>
+        </audio>
     </div>
-     
-    <audio  id="audio" 
-    ref="mp3"
-    @timeupdate="onTimeUpdate"
-    src= 'audio/遇见 Yu Jian （Encounter) - Stefanie Sun 孫燕姿 - Sungha Jung.mp3' ></audio>
+   
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js'></script>
     <script src="function.js"></script>
 </body>
