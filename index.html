@@ -24,22 +24,22 @@
                         <div class="title mt_18" @click="isSingerShow=!isSingerShow"><span class="setX">歌手</span></div>
                         <div class="ul" :class="{show_ul:isSingerShow}">
                             <template v-for="(item,index) in singerList">
-                                <div class="li" v-bind:num="index" @click="targetList($event);changeAlbum(index)">{{item}}</div>
+                                <div class="li" v-bind:num="index" @click="targetList($event);changeAlbum(index);changeList(index+2)">{{item}}</div>
                             </template>                        
                             <div class="title mt_18" @click="isAlbumShow=!isAlbumShow"><span class="setX">專輯</span></div>
                             <div class="ul" :class="{show_ul:isAlbumShow}">
                                 <template v-if="currentAlbum==0" v-for="(item,index) in singerAlbum[0]">
-                                    <div class="li" @click="targetList($event)">{{item}}</div>
+                                    <div class="li" @click="targetList($event);changeList(index+4)">{{item}}</div>
                                 </template>
                                 <template v-if="currentAlbum==1" v-for="(item,index) in singerAlbum[1]">
-                                    <div class="li" @click="targetList($event)">{{item}}</div>
+                                    <div class="li" @click="targetList($event);changeList(index+7)">{{item}}</div>
                                 </template>
                             </div>
                         </div>
                         <div class="title mt_18" @click="isFavoriteShow=!isFavoriteShow"><span>我的最愛</span></div>
                         <div class="ul" :class="{show_ul:isFavoriteShow}"> 
                             <template v-for="(item,index) in myFavorite">
-                                <div class="li" @click="targetList($event)">{{item}}</div>
+                                <div class="li">{{item}}</div>
                             </template>                        
                         </div>
                     </div> 
@@ -73,7 +73,7 @@
                             </div>
                             <div class="row">
                                 <div class="singer">{{item.singer}}</div>
-                                <div class="player" v-bind:num="item.src" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectSong($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="player" v-bind:ind="item.id" v-bind:num="item.src" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectSong($event)" style="background-image: url(img/playicon-4.svg)"></div>
                                 <div class="time">{{item.time}}</div>
                             </div>
                         </div>
@@ -93,7 +93,147 @@
                             </div>
                             <div class="row">
                                 <div class="singer">{{item.singer}}</div>
-                                <div class="player" v-bind:num="item.src" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectSong($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="player" v-bind:ind="item.id" v-bind:num="item.src" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectSong($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="time">{{item.time}}</div>
+                            </div>
+                        </div>
+                    </template>
+                     <template v-if="currentList==2" v-for="(item,index) in singerSong1">
+                        <div class="song_box">
+                            <div class="row">
+                                <div class="song_title">{{item.title}}
+                                    <svg class="heart" :class="{active:item.like}" v-bind:num="index" @click="likeHeart" x="0px" y="0px" viewBox="0 0 20 17.8" >
+                                    <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
+                                        c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
+                                        c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
+                                        c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
+                                    </svg>
+                                </div>
+                                <div class="album">{{item.album}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="singer">{{item.singer}}</div>
+                                <div class="player" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectAd($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="time">{{item.time}}</div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-if="currentList==3" v-for="(item,index) in singerSong2">
+                        <div class="song_box">
+                            <div class="row">
+                                <div class="song_title">{{item.title}}
+                                    <svg class="heart" :class="{active:item.like}" v-bind:num="index" @click="likeHeart" x="0px" y="0px" viewBox="0 0 20 17.8" >
+                                    <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
+                                        c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
+                                        c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
+                                        c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
+                                    </svg>
+                                </div>
+                                <div class="album">{{item.album}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="singer">{{item.singer}}</div>
+                                <div class="player" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectAd($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="time">{{item.time}}</div>
+                            </div>
+                        </div>
+                    </template>
+                     <template v-if="currentList==4" v-for="(item,index) in AlbumSongs1">
+                        <div class="song_box">
+                            <div class="row">
+                                <div class="song_title">{{item.title}}
+                                    <svg class="heart" :class="{active:item.like}" v-bind:num="index" @click="likeHeart" x="0px" y="0px" viewBox="0 0 20 17.8" >
+                                    <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
+                                        c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
+                                        c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
+                                        c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
+                                    </svg>
+                                </div>
+                                <div class="album">{{item.album}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="singer">{{item.singer}}</div>
+                                <div class="player" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectAd($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="time">{{item.time}}</div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-if="currentList==5" v-for="(item,index) in AlbumSongs2">
+                        <div class="song_box">
+                            <div class="row">
+                                <div class="song_title">{{item.title}}
+                                    <svg class="heart" :class="{active:item.like}" v-bind:num="index" @click="likeHeart" x="0px" y="0px" viewBox="0 0 20 17.8" >
+                                    <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
+                                        c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
+                                        c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
+                                        c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
+                                    </svg>
+                                </div>
+                                <div class="album">{{item.album}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="singer">{{item.singer}}</div>
+                                <div class="player" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectAd($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="time">{{item.time}}</div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-if="currentList==6" v-for="(item,index) in AlbumSongs3">
+                        <div class="song_box">
+                            <div class="row">
+                                <div class="song_title">{{item.title}}
+                                    <svg class="heart" :class="{active:item.like}" v-bind:num="index" @click="likeHeart" x="0px" y="0px" viewBox="0 0 20 17.8" >
+                                    <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
+                                        c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
+                                        c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
+                                        c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
+                                    </svg>
+                                </div>
+                                <div class="album">{{item.album}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="singer">{{item.singer}}</div>
+                                <div class="player" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectAd($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="time">{{item.time}}</div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-if="currentList==7" v-for="(item,index) in AlbumSongs4">
+                        <div class="song_box">
+                            <div class="row">
+                                <div class="song_title">{{item.title}}
+                                    <svg class="heart" :class="{active:item.like}" v-bind:num="index" @click="likeHeart" x="0px" y="0px" viewBox="0 0 20 17.8" >
+                                    <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
+                                        c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
+                                        c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
+                                        c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
+                                    </svg>
+                                </div>
+                                <div class="album">{{item.album}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="singer">{{item.singer}}</div>
+                                <div class="player" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectAd($event)" style="background-image: url(img/playicon-4.svg)"></div>
+                                <div class="time">{{item.time}}</div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-if="currentList==8" v-for="(item,index) in AlbumSongs5">
+                        <div class="song_box">
+                            <div class="row">
+                                <div class="song_title">{{item.title}}
+                                    <svg class="heart" :class="{active:item.like}" v-bind:num="index" @click="likeHeart" x="0px" y="0px" viewBox="0 0 20 17.8" >
+                                    <path d="M10,16c-0.2,0-0.4-0.1-0.6-0.2c-0.6-0.6-1.3-1.1-1.8-1.6l0,0c-1.4-1.1-2.7-2.4-3.9-3.7C2.7,9.4,2.1,8,2.1,6.6
+                                        c0-1.2,0.4-2.5,1.3-3.4c0.8-0.9,2-1.4,3.2-1.4c0.9,0,1.8,0.3,2.5,0.9C9.4,3,9.7,3.4,10,3.7c0.3-0.4,0.6-0.8,1-1.1
+                                        c0.7-0.6,1.6-0.9,2.5-0.9c1.2,0,2.4,0.5,3.2,1.4c0.8,0.9,1.3,2.1,1.3,3.4c0,1.4-0.6,2.8-1.6,3.9c-1.2,1.3-2.5,2.6-3.9,3.7
+                                        c-0.5,0.5-1.2,1-1.8,1.6C10.4,15.9,10.2,16,10,16L10,16z"/>
+                                    </svg>
+                                </div>
+                                <div class="album">{{item.album}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="singer">{{item.singer}}</div>
+                                <div class="player" v-bind:til="item.title" v-bind:sir="item.singer" v-bind:img="item.Img" @click="selectAd($event)" style="background-image: url(img/playicon-4.svg)"></div>
                                 <div class="time">{{item.time}}</div>
                             </div>
                         </div>
@@ -106,13 +246,13 @@
         </div>
         <div class="player_box" :class="{list_show:isListShow}">
             <div class="cd" :class="{playing:isplay}">
-                <img class="cd_cover" :src="songImgSrc" alt="">
+                <div class="cd_cover" :style="{backgroundImage:'url('+songImgSrc+')'}"></div>
             </div>
             <div class="line" :class="{playing:isplay}" style="background-image: url(img/未命名-3.svg)"></div>
             <div class="btn_bar">
-                <div class="btn next"></div>
-                <div class="btn pre"></div>
-                <div class="btn recycle"><div class="dot"></div></div>
+                <div class="btn next" @click="nextSong"></div>
+                <div class="btn pre" @click="preSong"></div>
+                <div class="btn recycle" @click="switchMode($event)"><div class="dot"></div></div>
             </div>
             <div class="shadow">
                 <div class="icon" :class="{playing:isplay}" @click="playOrStop()" :style="{backgroundImage : outPutIcon}"></div>
@@ -133,13 +273,19 @@
                 <div class="time">{{duration}}</div>
             </div>
         </div>
+        <div class="ad">
+            <div class="ad_block">
+                <div class="image" style="background-image: url(img/ad.jpg)"></div>
+                <div class="ad_btn" @click="closeAd"></div>
+            </div>
+        </div>
         <audio  id="audio"
             ref="mp3"
             type="audio/mpeg"
             @canplay="canPlay"
             crossOrigin="anonymous"
             @timeupdate="timeUpdate"
-            @ended="end"
+            @ended="randomSong"
             src= 'audio/遇见 Yu Jian （Encounter) - Stefanie Sun 孫燕姿 - Sungha Jung.mp3'>
         </audio>
     </div>
