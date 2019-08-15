@@ -1,4 +1,4 @@
-# mp3player
+# F2E-week3-Mp3Player
 <h3>F2E挑戰第三關</h3>
 <h4>待優化功能：</h4>
 1.音量 icon 靜音 toggle 回復原本音量<br>
